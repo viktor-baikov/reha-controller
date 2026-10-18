@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleIdentifier</key><string>lt.reha.bluetooth-probe</string>
+<key>CFBundleName</key><string>Reha Bluetooth Probe</string>
+<key>CFBundleDisplayName</key><string>Reha Bluetooth Probe</string>
+<key>CFBundleExecutable</key><string>mac_bluetooth_probe</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+<key>NSBluetoothAlwaysUsageDescription</key><string>Find and connect the Reha controller to test Bluetooth MIDI pairing.</string>
+</dict></plist>

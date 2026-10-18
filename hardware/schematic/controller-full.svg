@@ -1,0 +1,382 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3100" height="3740" viewBox="0 0 3100 3740"><rect width="100%" height="100%" fill="white"/><style>
+text{font-family:Arial,sans-serif;font-size:23px;fill:#20394d} .title{font-size:39px;font-weight:bold} .head{font-size:28px;font-weight:bold} .small{font-size:20px} .pin{font-size:23px;font-weight:bold} .box{fill:#f4f8fc;stroke:#a9bdcc;stroke-width:2} .note{fill:#fff3dc;stroke:#cfb582;stroke-width:2} .sig{stroke:#20394d;stroke-width:3;fill:none} .gnd{stroke:#2875ae;stroke-width:3;fill:none} .pwr{stroke:#cc3535;stroke-width:3;fill:none} .five{stroke:#ac640d;stroke-width:3;fill:none}
+</style>
+<text x="55" y="62" class="title">Rehearsal controller - revision K</text>
+<text x="55" y="105" class="small">TOP / COMPONENT VIEW: antenna UP, USB DOWN. J1 = left header; J3 = right header. Solder-side view is mirrored.</text>
+<text x="55" y="142" class="small">X1-X7 identify panel harness contacts. Square contact = pin 1. Match wire labels at the device; do not assume its factory order.</text>
+<rect x="55" y="180" width="2990" height="105" rx="10" class="note"/>
+<text x="80" y="220" class="pin">LCD INTERFACE: module SDA/SCL measured about 5V at 3.3V supply. U2 provides bidirectional I2C level translation.</text>
+<text x="80" y="257" class="small">C3 + encoder + U2 LV = 3.3V. LCD VCC + U2 HV + Record LED branch = USB 5V. U2 is required; GPIO map / firmware unchanged.</text>
+<rect x="1160" y="365" width="640" height="1315" rx="10" class="box"/>
+<rect x="1360" y="305" width="240" height="90" rx="10" class="box"/>
+<text x="1382" y="346" class="head">ANTENNA</text>
+<text x="1382" y="377" class="small">keep clear</text>
+<text x="1275" y="438" class="head">ESP32-C3-DevKitM-1</text>
+<text x="1180" y="474" class="pin">J1 - LEFT</text>
+<text x="1620" y="474" class="pin">J3 - RIGHT</text>
+<rect x="1153" y="513" width="14" height="14" fill="white" stroke="#20394d" stroke-width="3"/>
+<rect x="1793" y="513" width="14" height="14" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="527" class="pin">GND</text>
+<text x="1585" y="527" class="pin">GND</text>
+<path d="M1160 520 L1090 520" class="gnd"/>
+<text x="1005" y="512" class="small">GND</text>
+<path d="M1800 520 L1870 520" class="gnd"/>
+<text x="1878" y="512" class="small">GND</text>
+<circle cx="1160" cy="596" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="596" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="603" class="pin">3V3</text>
+<text x="1585" y="603" class="pin">TX / IO21</text>
+<text x="1585" y="627" class="small">USB-UART</text>
+<path d="M1160 596 L1090 596" class="pwr"/>
+<text x="1005" y="588" class="small">3V3</text>
+<circle cx="1160" cy="672" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="672" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="679" class="pin">3V3</text>
+<text x="1585" y="679" class="pin">RX / IO20</text>
+<text x="1585" y="703" class="small">USB-UART</text>
+<path d="M1160 672 L1090 672" class="pwr"/>
+<text x="1005" y="664" class="small">3V3</text>
+<circle cx="1160" cy="748" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="748" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="755" class="pin">IO2</text>
+<text x="1585" y="755" class="pin">GND</text>
+<text x="1180" y="779" class="small">free / strap</text>
+<path d="M1800 748 L1870 748" class="gnd"/>
+<text x="1878" y="740" class="small">GND</text>
+<circle cx="1160" cy="824" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="824" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="831" class="pin">IO3</text>
+<text x="1585" y="831" class="pin">IO9</text>
+<text x="1180" y="855" class="small">SONG</text>
+<text x="1585" y="855" class="small">BACK / BOOT</text>
+<circle cx="1160" cy="900" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="900" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="907" class="pin">GND</text>
+<text x="1585" y="907" class="pin">IO8</text>
+<text x="1585" y="931" class="small">onboard RGB</text>
+<path d="M1160 900 L1090 900" class="gnd"/>
+<text x="1005" y="892" class="small">GND</text>
+<circle cx="1160" cy="976" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="976" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="983" class="pin">RST</text>
+<text x="1585" y="983" class="pin">GND</text>
+<text x="1180" y="1007" class="small">RESET</text>
+<path d="M1800 976 L1870 976" class="gnd"/>
+<text x="1878" y="968" class="small">GND</text>
+<circle cx="1160" cy="1052" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="1052" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="1059" class="pin">GND</text>
+<text x="1585" y="1059" class="pin">IO7</text>
+<text x="1585" y="1083" class="small">PLAY</text>
+<path d="M1160 1052 L1090 1052" class="gnd"/>
+<text x="1005" y="1044" class="small">GND</text>
+<circle cx="1160" cy="1128" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="1128" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="1135" class="pin">IO0</text>
+<text x="1585" y="1135" class="pin">IO6</text>
+<text x="1180" y="1159" class="small">TAKE</text>
+<text x="1585" y="1159" class="small">ENC A</text>
+<circle cx="1160" cy="1204" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="1204" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="1211" class="pin">IO1</text>
+<text x="1585" y="1211" class="pin">IO5</text>
+<text x="1180" y="1235" class="small">RECORD</text>
+<text x="1585" y="1235" class="small">ENC B</text>
+<circle cx="1160" cy="1280" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="1280" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="1287" class="pin">IO10</text>
+<text x="1585" y="1287" class="pin">IO4</text>
+<text x="1180" y="1311" class="small">REC LED CTRL</text>
+<text x="1585" y="1311" class="small">ENC SW</text>
+<circle cx="1160" cy="1356" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="1356" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="1363" class="pin">GND</text>
+<text x="1585" y="1363" class="pin">GND</text>
+<path d="M1160 1356 L1090 1356" class="gnd"/>
+<text x="1005" y="1348" class="small">GND</text>
+<path d="M1800 1356 L1870 1356" class="gnd"/>
+<text x="1878" y="1348" class="small">GND</text>
+<circle cx="1160" cy="1432" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="1432" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="1439" class="pin">5V</text>
+<text x="1585" y="1439" class="pin">IO18</text>
+<text x="1585" y="1463" class="small">LCD SDA</text>
+<path d="M1160 1432 L1090 1432" class="five"/>
+<text x="1005" y="1424" class="small">5V</text>
+<circle cx="1160" cy="1508" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="1508" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="1515" class="pin">5V</text>
+<text x="1585" y="1515" class="pin">IO19</text>
+<text x="1585" y="1539" class="small">LCD SCL</text>
+<path d="M1160 1508 L1090 1508" class="five"/>
+<text x="1005" y="1500" class="small">5V</text>
+<circle cx="1160" cy="1584" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<circle cx="1800" cy="1584" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="1180" y="1591" class="pin">GND</text>
+<text x="1585" y="1591" class="pin">GND</text>
+<path d="M1160 1584 L1090 1584" class="gnd"/>
+<text x="1005" y="1576" class="small">GND</text>
+<path d="M1800 1584 L1870 1584" class="gnd"/>
+<text x="1878" y="1576" class="small">GND</text>
+<rect x="1380" y="1655" width="200" height="65" rx="10" class="box"/>
+<text x="1410" y="1697" class="head">USB</text>
+<rect x="80" y="690" width="610" height="180" rx="10" class="box"/>
+<text x="100" y="728" class="head">X4 SONG (2 pins)</text>
+<rect x="683" y="743" width="14" height="14" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="100" y="758" class="pin">1  GND / COM</text>
+<path d="M690 750 L760 750" class="gnd"/>
+<text x="768" y="742" class="small">GND</text>
+<circle cx="690" cy="824" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="100" y="832" class="pin">2  SONG / NO</text>
+<path d="M690 824 L1160 824" class="sig"/>
+<path d="M955 824 L955 812" class="sig"/>
+<rect x="947" y="784" width="16" height="28" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M955 784 L955 769" class="sig"/>
+<path d="M955 769 L1025 769" class="pwr"/>
+<text x="1033" y="776" class="small">3V3</text>
+<text x="973" y="809" class="small">R4 10k*</text>
+<circle cx="955" cy="824" r="5" fill="#20394d"/>
+<rect x="80" y="915" width="610" height="140" rx="10" class="box"/>
+<text x="100" y="953" class="head">X3 TAKE (2 pins)</text>
+<rect x="683" y="963" width="14" height="14" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="100" y="978" class="pin">1  GND / COM</text>
+<path d="M690 970 L760 970" class="gnd"/>
+<text x="768" y="962" class="small">GND</text>
+<circle cx="690" cy="1010" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="100" y="1018" class="pin">2  TAKE / NO</text>
+<path d="M690 1010 L860 1010 L860 1128 L1160 1128" class="sig"/>
+<path d="M1030 1128 L1030 1116" class="sig"/>
+<rect x="1022" y="1088" width="16" height="28" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M1030 1088 L1030 1073" class="sig"/>
+<path d="M1030 1073 L1100 1073" class="pwr"/>
+<text x="1108" y="1080" class="small">3V3</text>
+<text x="1048" y="1113" class="small">R3 10k*</text>
+<circle cx="1030" cy="1128" r="5" fill="#20394d"/>
+<rect x="80" y="1100" width="610" height="320" rx="10" class="box"/>
+<text x="100" y="1138" class="head">X1 RECORD + red LED (4 pins)</text>
+<rect x="683" y="1153" width="14" height="14" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="100" y="1168" class="pin">1  GND / switch COM</text>
+<path d="M690 1160 L760 1160" class="gnd"/>
+<text x="768" y="1152" class="small">GND</text>
+<circle cx="690" cy="1204" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="100" y="1212" class="pin">2  RECORD / switch NO</text>
+<circle cx="690" cy="1270" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="100" y="1278" class="pin">3  REC_A / LED anode +</text>
+<circle cx="690" cy="1340" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="100" y="1348" class="pin">4  REC_K / LED cathode -</text>
+<path d="M690 1204 L1160 1204" class="sig"/>
+<path d="M955 1204 L955 1192" class="sig"/>
+<rect x="947" y="1164" width="16" height="28" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M955 1164 L955 1149" class="sig"/>
+<path d="M955 1149 L1025 1149" class="pwr"/>
+<text x="1033" y="1156" class="small">3V3</text>
+<text x="973" y="1189" class="small">R1 10k*</text>
+<circle cx="955" cy="1204" r="5" fill="#20394d"/>
+<path d="M690 1270 L760 1270" class="five"/>
+<text x="768" y="1262" class="small">REC_A</text>
+<path d="M690 1340 L760 1340" class="sig"/>
+<text x="768" y="1332" class="small">REC_K</text>
+<path d="M1160 1280 L990 1280" class="sig"/>
+<text x="940" y="1312" class="small">REC_LED_CTL</text>
+<rect x="2310" y="710" width="690" height="130" rx="10" class="box"/>
+<text x="2330" y="748" class="head">X5 BACK / BOOT (2 pins)</text>
+<rect x="2303" y="763" width="14" height="14" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="778" class="pin">1  GND / COM</text>
+<path d="M2310 770 L2240 770" class="gnd"/>
+<text x="2155" y="762" class="small">GND</text>
+<circle cx="2310" cy="824" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="832" class="pin">2  BACK / NO</text>
+<path d="M1800 824 L2310 824" class="sig"/>
+<path d="M2040 824 L2040 812" class="sig"/>
+<rect x="2032" y="784" width="16" height="28" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M2040 784 L2040 769" class="sig"/>
+<path d="M2040 769 L2110 769" class="pwr"/>
+<text x="2118" y="776" class="small">3V3</text>
+<text x="2058" y="809" class="small">R5 10k*</text>
+<circle cx="2040" cy="824" r="5" fill="#20394d"/>
+<rect x="2310" y="915" width="690" height="130" rx="10" class="box"/>
+<text x="2330" y="953" class="head">X2 PLAY (2 pins)</text>
+<rect x="2303" y="968" width="14" height="14" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="983" class="pin">1  GND / COM</text>
+<path d="M2310 975 L2240 975" class="gnd"/>
+<text x="2155" y="967" class="small">GND</text>
+<circle cx="2310" cy="1015" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="1023" class="pin">2  PLAY / NO</text>
+<path d="M1800 1052 L2120 1052 L2120 1015 L2310 1015" class="sig"/>
+<path d="M1990 1052 L1990 1040" class="sig"/>
+<rect x="1982" y="1012" width="16" height="28" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M1990 1012 L1990 997" class="sig"/>
+<path d="M1990 997 L2060 997" class="pwr"/>
+<text x="2068" y="1004" class="small">3V3</text>
+<text x="2008" y="1037" class="small">R2 10k*</text>
+<circle cx="1990" cy="1052" r="5" fill="#20394d"/>
+<rect x="2310" y="1070" width="690" height="375" rx="10" class="box"/>
+<text x="2330" y="1108" class="head">X6 ENCODER (5 pins)</text>
+<rect x="2303" y="1121" width="14" height="14" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="1136" class="pin">1  A / CLK</text>
+<circle cx="2310" cy="1204" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="1212" class="pin">2  B / DT</text>
+<circle cx="2310" cy="1280" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="1288" class="pin">3  SW / push</text>
+<circle cx="2310" cy="1375" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="1383" class="pin">4  3V3 / module +</text>
+<path d="M2310 1375 L2240 1375" class="pwr"/>
+<text x="2155" y="1367" class="small">3V3</text>
+<circle cx="2310" cy="1420" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="1428" class="pin">5  GND / common</text>
+<path d="M2310 1420 L2240 1420" class="gnd"/>
+<text x="2155" y="1412" class="small">GND</text>
+<path d="M1800 1128 L2310 1128" class="sig"/>
+<path d="M2010 1128 L2010 1116" class="sig"/>
+<rect x="2002" y="1088" width="16" height="28" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M2010 1088 L2010 1073" class="sig"/>
+<path d="M2010 1073 L2080 1073" class="pwr"/>
+<text x="2088" y="1080" class="small">3V3</text>
+<text x="2028" y="1113" class="small">R6 10k*</text>
+<circle cx="2010" cy="1128" r="5" fill="#20394d"/>
+<path d="M1800 1204 L2310 1204" class="sig"/>
+<path d="M2010 1204 L2010 1192" class="sig"/>
+<rect x="2002" y="1164" width="16" height="28" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M2010 1164 L2010 1149" class="sig"/>
+<path d="M2010 1149 L2080 1149" class="pwr"/>
+<text x="2088" y="1156" class="small">3V3</text>
+<text x="2028" y="1189" class="small">R7 10k*</text>
+<circle cx="2010" cy="1204" r="5" fill="#20394d"/>
+<path d="M1800 1280 L2310 1280" class="sig"/>
+<path d="M2010 1280 L2010 1268" class="sig"/>
+<rect x="2002" y="1240" width="16" height="28" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M2010 1240 L2010 1225" class="sig"/>
+<path d="M2010 1225 L2080 1225" class="pwr"/>
+<text x="2088" y="1232" class="small">3V3</text>
+<text x="2028" y="1265" class="small">R8 10k*</text>
+<circle cx="2010" cy="1280" r="5" fill="#20394d"/>
+<rect x="2310" y="1500" width="690" height="255" rx="10" class="box"/>
+<text x="2330" y="1538" class="head">X7 LCD DFR0464 (4 pins)</text>
+<rect x="2303" y="1553" width="14" height="14" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="1568" class="pin">1  SDA</text>
+<circle cx="2310" cy="1610" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="1618" class="pin">2  SCL</text>
+<circle cx="2310" cy="1665" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="1673" class="pin">3  5V / VCC</text>
+<path d="M2310 1665 L2240 1665" class="five"/>
+<text x="2155" y="1657" class="small">5V</text>
+<circle cx="2310" cy="1720" r="7" fill="white" stroke="#20394d" stroke-width="3"/>
+<text x="2338" y="1728" class="pin">4  GND</text>
+<path d="M2310 1720 L2240 1720" class="gnd"/>
+<text x="2155" y="1712" class="small">GND</text>
+<path d="M1800 1432 L2130 1432 L2130 1560 L2150 1560" class="sig"/>
+<path d="M2280 1560 L2310 1560" class="sig"/>
+<path d="M1800 1508 L2030 1508 L2030 1610 L2150 1610" class="sig"/>
+<path d="M2280 1610 L2310 1610" class="sig"/>
+<rect x="2150" y="1515" width="130" height="120" rx="10" class="box"/>
+<text x="2158" y="1492" class="small">U2 I2C shift</text>
+<text x="2168" y="1568" class="small">LV1 / HV1</text>
+<text x="2168" y="1618" class="small">LV2 / HV2</text>
+<text x="80" y="1450" class="pin">RECORD: J1.10 / GPIO1; LED: J1.11 / GPIO10.</text>
+<text x="80" y="1490" class="pin">RIGHT: encoder A/B/SW on J3.9 / .10 / .11;</text>
+<text x="80" y="1525" class="pin">PLAY; BACK; LCD SDA/SCL. No signal crossover.</text>
+<text x="80" y="1570" class="small">GPIO2 spare. GPIO8 / 20 / 21 unchanged.</text>
+<text x="80" y="1605" class="small">BACK held during RESET enters download mode.</text>
+<text x="80" y="1640" class="small">J1/J3 numbers apply to official DevKitM-1.</text>
+<text x="80" y="1675" class="small">For a clone, verify silkscreen and header order.</text>
+<text x="80" y="1710" class="small">Use Rev K firmware with this pin map.</text>
+<rect x="55" y="1820" width="1650" height="640" rx="10" class="box"/>
+<text x="80" y="1865" class="head">Record driver - place beside X1 / J1 on the small board</text>
+<text x="80" y="1910" class="small">REC_A / REC_K labels above connect to the same labels below.</text>
+<path d="M1290 1965 L1220 1965" class="five"/>
+<text x="1135" y="1957" class="small">5V</text>
+<path d="M1290 1965 L1290 1977" class="sig"/>
+<rect x="1281" y="1977" width="18" height="38" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M1290 2015 L1290 2030" class="sig"/>
+<text x="1308" y="2001" class="small">R11 1k</text>
+<path d="M1290 2030 L1290 2070" class="sig"/>
+<text x="1330" y="2050" class="pin">REC_A -&gt; X1.3</text>
+<polygon points="1270,2070 1310,2070 1290,2100" fill="#dc3434" stroke="#20394d" stroke-width="3"/>
+<path d="M1270 2100 L1310 2100" class="sig"/>
+<text x="1330" y="2100" class="small">red LED in button</text>
+<path d="M1290 2100 L1290 2160" class="sig"/>
+<text x="1330" y="2140" class="pin">REC_K -&gt; X1.4</text>
+<circle cx="1270" cy="2210" r="51" fill="white" stroke="#20394d" stroke-width="3"/>
+<path d="M1245 2175 L1245 2245" class="sig"/>
+<path d="M1245 2190 L1290 2160" class="sig"/>
+<path d="M1245 2230 L1290 2260" class="sig"/>
+<path d="M1274 2238 L1287 2257 L1265 2251Z" fill="#20394d"/>
+<text x="1350" y="2205" class="pin">Q1 BC547C</text>
+<text x="1350" y="2240" class="small">C top; B left; E bottom</text>
+<path d="M1290 2260 L1290 2300" class="sig"/>
+<path d="M1290 2300 L1360 2300" class="gnd"/>
+<text x="1368" y="2292" class="small">GND</text>
+<text x="80" y="2180" class="pin">GPIO10 / J1.11</text>
+<text x="80" y="2218" class="small">REC_LED_CTL</text>
+<path d="M330 2210 L420 2210" class="sig"/>
+<path d="M420 2210 L432 2210" class="sig"/>
+<rect x="432" y="2201" width="54" height="18" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M486 2210 L500 2210" class="sig"/>
+<text x="420" y="2191" class="small">R12 1k BASE</text>
+<path d="M500 2210 L1245 2210" class="sig"/>
+<path d="M840 2210 L840 2265" class="sig"/>
+<circle cx="840" cy="2210" r="5" fill="#20394d"/>
+<path d="M840 2265 L840 2277" class="sig"/>
+<rect x="831" y="2277" width="18" height="38" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M840 2315 L840 2330" class="sig"/>
+<text x="858" y="2301" class="small">R13 100k</text>
+<path d="M840 2330 L910 2330" class="gnd"/>
+<text x="918" y="2322" class="small">GND</text>
+<text x="80" y="2390" class="small">R11 is the LED current limit; R12 is the base resistor. Keep BOTH. No 5V on any GPIO.</text>
+<text x="80" y="2425" class="small">Red Vf estimated 1.8-2.2V, Q1 drop 0.2V: 1k at USB 5V gives 2.6-3mA. Rating/Vf unmeasured.</text>
+<rect x="1745" y="1820" width="1300" height="640" rx="10" class="box"/>
+<text x="1770" y="1865" class="head">C3-side pull-ups / bypass + transistor pinout</text>
+<path d="M1830 1950 L1900 1950" class="pwr"/>
+<text x="1908" y="1942" class="small">3V3</text>
+<path d="M1830 1950 L1830 1962" class="sig"/>
+<rect x="1821" y="1962" width="18" height="38" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M1830 2000 L1830 2015" class="sig"/>
+<text x="1848" y="1986" class="small">R9 4.7k*</text>
+<path d="M1830 2015 L1830 2050" class="sig"/>
+<text x="1805" y="2085" class="small">SDA_L / U2 LV1</text>
+<path d="M2120 1950 L2190 1950" class="pwr"/>
+<text x="2198" y="1942" class="small">3V3</text>
+<path d="M2120 1950 L2120 1962" class="sig"/>
+<rect x="2111" y="1962" width="18" height="38" fill="white" stroke="#20394d" stroke-width="2.5"/>
+<path d="M2120 2000 L2120 2015" class="sig"/>
+<text x="2138" y="1986" class="small">R10 4.7k*</text>
+<path d="M2120 2015 L2120 2050" class="sig"/>
+<text x="2095" y="2085" class="small">SCL_L / U2 LV2</text>
+<text x="1770" y="2140" class="small">C1 100nF ceramic: X7.3 (5V) to X7.4 (GND), near LCD.</text>
+<text x="1770" y="2175" class="small">C2 10uF optional across 3V3 / GND. Ceramic has no polarity.</text>
+<text x="1770" y="2235" class="pin">Q1 reference: flat face toward you, legs DOWN:</text>
+<rect x="2240" y="2260" width="225" height="70" rx="10" class="box"/>
+<text x="2290" y="2306" class="pin">BC547C</text>
+<path d="M2260 2330 L2260 2370" class="sig"/>
+<text x="2240" y="2400" class="pin">1 C</text>
+<path d="M2350 2330 L2350 2370" class="sig"/>
+<text x="2330" y="2400" class="pin">2 B</text>
+<path d="M2440 2330 L2440 2370" class="sig"/>
+<text x="2420" y="2400" class="pin">3 E</text>
+<text x="1770" y="2435" class="small">onsemi BC550/D p1. Unmarked part: identify C/B/E before soldering.</text>
+<rect x="55" y="2505" width="2990" height="325" rx="10" class="note"/>
+<text x="80" y="2550" class="head">Connector convention and component-end soldering</text>
+<text x="80" y="2600" class="small">Numbered contacts are seen from the COMPONENT SIDE of the perfboard. Mark square pin 1 on board and cable; the solder-side view is mirrored.</text>
+<text x="80" y="2636" class="small">X1: pin1 -&gt; switch COM; pin2 -&gt; switch NO; pin3 -&gt; LED +; pin4 -&gt; LED -. Switch and LED are separate circuits; leave any NC terminal unused.</text>
+<text x="80" y="2672" class="small">X2-X5: pin1 -&gt; COM / GND; pin2 -&gt; NO / signal. A bare two-terminal NO button has no polarity. No external lamp connection on these headers.</text>
+<text x="80" y="2708" class="small">X6: 1 A/CLK, 2 B/DT, 3 SW, 4 +3.3V, 5 GND. Match actual module labels. Bare encoder: pin4 unused; common + one push terminal -&gt; pin5.</text>
+<text x="80" y="2744" class="small">X7: 1 SDA_H, 2 SCL_H, 3 VCC/USB 5V, 4 GND. Adapt to the LCD connector labels; this is NOT a claim about the factory connector order.</text>
+<text x="80" y="2780" class="small">Use separate keyed plugs or clear labels. If your connector has molded numbers, use its pin-1 marking and map wires accordingly; do not guess latch orientation.</text>
+<rect x="55" y="2870" width="2990" height="290" rx="10" class="box"/>
+<text x="80" y="2915" class="head">Small-board placement and power notes</text>
+<text x="80" y="2965" class="small">R1-R8: 10k pull-ups to 3V3 on all eight input nets. Omit matching encoder pull-ups only if the powered module already supplies them at 3.3V.</text>
+<text x="80" y="3001" class="small">R9/R10: effective 4.7k pull-ups to 3V3 on U2 LOW side. Module resistors can replace these. LCD pull-ups stay on HIGH side.</text>
+<text x="80" y="3037" class="small">Power: board USB is the sole source; J1.2/.3 = 3V3, J1.13/.14 = USB 5V. J3 has GND pins but no 3V3 pin. Route supplies as convenient.</text>
+<text x="80" y="3073" class="small">Place sockets for C3 in the middle; X1 + Q1/R11/R12/R13 on J1 side, X6 + X7 on J3 side. Leave antenna clear of wiring, copper and battery.</text>
+<text x="80" y="3109" class="small">Power OFF for rewiring. Load Rev K firmware, then verify controls/encoder direction/LED with simulator. No battery/charger wiring is included.</text>
+<rect x="55" y="3205" width="2990" height="455" rx="10" class="note"/>
+<text x="80" y="3250" class="head">U2 REQUIRED: two-channel bidirectional open-drain I2C level shifter (BSS138-type module)</text>
+<text x="80" y="3300" class="small">U2 installation has not been bench-validated. Connections below use module LABELS; physical pin order depends on the module.</text>
+<text x="80" y="3341" class="small">LOW side: LV -&gt; C3 3V3; LV1 -&gt; GPIO18 / SDA_L; LV2 -&gt; GPIO19 / SCL_L. Pull-ups on this side go ONLY to 3V3.</text>
+<text x="80" y="3382" class="small">HIGH side: HV -&gt; USB 5V; HV1 -&gt; X7.1 / LCD SDA_H; HV2 -&gt; X7.2 / LCD SCL_H. LCD VCC / X7.3 -&gt; USB 5V.</text>
+<text x="80" y="3423" class="small">GND: U2, LCD / X7.4 and C3 share ground. Leave unused translator channels unconnected. Keep existing onboard LCD pull-ups.</text>
+<text x="80" y="3464" class="small">Check both sides with C3 signal wires detached: LOW SDA/SCL near 3.3V, HIGH SDA/SCL near 5V. Then power OFF and connect C3.</text>
+<text x="80" y="3505" class="small">A plain resistor divider, series resistor or one-way logic buffer is not a substitute for bidirectional I2C translation.</text>
+<text x="80" y="3546" class="small">U2 uses the existing SDA/SCL GPIOs. Optical LCD response after translator installation has not been measured.</text>
+<text x="80" y="3587" class="small">Reference topology: NXP AN10441 section 2.1. For a selected commercial module verify its supply labels and schematic.</text>
+</svg>

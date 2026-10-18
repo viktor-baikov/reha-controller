@@ -1,0 +1,57 @@
+# Separate checkout; never include recorder source, history or dependencies.
+/rehearsal-recorder/
+
+# Locally installed Arduino dependencies.
+/libraries/
+
+# Generated files and local environments.
+.DS_Store
+__pycache__/
+*.py[cod]
+*.bin
+*.elf
+*.hex
+*.map
+*.app/
+/build/
+/output/
+/tmp/
+node_modules/
+venv/
+.venv/
+
+# Local agent configuration and credentials.
+.agents/
+.codex/
+.aws/
+.env
+.env.*
+
+# Incoming cross-laptop snapshots; preserve locally, never vendor recorder sources.
+/from_win/
+
+# Personal notes, shopping research, mechanical experiments and session state.
+/.local/
+/hardware/shopping/
+/enclosure/
+/system-changes.md
+
+# Generated firmware, packages and local binary artifacts.
+*.uf2
+*.o
+*.a
+*.dylib
+*.so
+*.dll
+*.exe
+*.zip
+*.tar
+*.gz
+*.7z
+*.bundle
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.heic
+*.mov

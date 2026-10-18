@@ -1,0 +1,385 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LCD menu — revision K</title><style>
+body{margin:0;background:#edf2f7;color:#18384a;font:16px/1.5 system-ui,sans-serif}main{max-width:1500px;margin:auto;padding:28px}h1{font-size:30px}.note{padding:18px;background:#fff3d5;border-radius:10px}.map{background:white;overflow:auto;border:1px solid #cedbe5;border-radius:12px}.map svg{width:100%;height:auto;min-width:1050px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:16px}.card{background:white;padding:18px;border:1px solid #cbd8e3;border-radius:12px;scroll-margin-top:15px}.card:target{outline:4px solid #d18a25}.card h3{font-size:17px;margin:0 0 10px}.lcd{background:#152d32;color:#d6ffcc;font:17px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;padding:14px;white-space:pre;overflow:auto;border-radius:8px}.end{color:#ffb64f;font-weight:bold}.id{font:12px monospace;color:#617987}pre.source{white-space:pre-wrap;font-size:14px}a{color:#116484}table{border-collapse:collapse;width:100%;background:white}td,th{border:1px solid #cbd8e3;padding:10px;text-align:left;vertical-align:top}</style><main>
+<h1>LCD screens</h1><p>Generated from actual firmware renderer snapshots.</p>
+<div class="note">Menu: <strong>Restart take / Stop rehearsal / Remove N take / Brightness / LCD timing test</strong>. Home shows <strong>Tn-Song</strong> and status + <strong>V:nnn</strong> percentage.<br>Each LCD row inserts <strong>- after column 16</strong>. Overflow stays visible for review; it is not displayed on hardware. No scrolling or volume popup.</div>
+<h2>Action-labelled map</h2><div class="map">
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="2650" viewBox="0 0 1700 2650"><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#45667a"/></marker></defs><rect width="1700" height="2650" fill="#f8fafc"/><style>text{font-family:Arial,sans-serif;fill:#163447;font-size:18px}.head{font-size:26px;font-weight:bold}.node{fill:white;stroke:#7397ac;stroke-width:2}.edge{fill:none;stroke:#45667a;stroke-width:2;marker-end:url(#arrow)}.label{font-size:16px;paint-order:stroke;stroke:#f8fafc;stroke-width:6px}.lcd{font-family:monospace;white-space:pre}</style>
+<text x="40" y="45" class="head" xml:space="preserve">Revision K — startup, context menu and confirmation</text>
+<text x="40" y="80" class="" xml:space="preserve">Firmware renderer snapshots. Idle, lifecycle and deletion require negotiated host capabilities.</text>
+<a href="menu-reference.html#flow-power"><rect x="40" y="130" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="158" class="" xml:space="preserve">NO BLUETOOTH MIDI CONNECTION</text>
+<text x="55" y="190" class="lcd" xml:space="preserve">Bluetooth MIDI  -</text>
+<text x="55" y="218" class="lcd" xml:space="preserve">Disconnected    -</text>
+</a>
+<a href="menu-reference.html#flow-sync"><rect x="625" y="130" width="450" height="112" rx="10" class="node"/>
+<text x="640" y="158" class="" xml:space="preserve">PC CONNECTED, WAITING FOR APP</text>
+<text x="640" y="190" class="lcd" xml:space="preserve">Bluetooth MIDI  -</text>
+<text x="640" y="218" class="lcd" xml:space="preserve">Waiting recorder-</text>
+</a>
+<a href="menu-reference.html#idle-start"><rect x="1210" y="130" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="158" class="" xml:space="preserve">EXPLICIT IDLE: NO REHEARSAL</text>
+<text x="1225" y="190" class="lcd" xml:space="preserve">connected       -</text>
+<text x="1225" y="218" class="lcd" xml:space="preserve">start rehersal? -</text>
+</a>
+<path d="M490 170 L625 170" class="edge"/>
+<text x="515" y="155" class="label" xml:space="preserve">BLE up</text>
+<path d="M1075 170 L1210 170" class="edge"/>
+<text x="1090" y="155" class="label" xml:space="preserve">Idle + bit32</text>
+<a href="menu-reference.html#home-ready"><rect x="40" y="410" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="438" class="" xml:space="preserve">ACTIVE REHEARSAL HOME</text>
+<text x="55" y="470" class="lcd" xml:space="preserve">T12-Midnight reh-earsal song</text>
+<text x="55" y="498" class="lcd" xml:space="preserve">READY      V:050-</text>
+</a>
+<a href="menu-reference.html#idle-start-pending"><rect x="1210" y="410" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="438" class="" xml:space="preserve">START REQUEST PENDING</text>
+<text x="1225" y="470" class="lcd" xml:space="preserve">connected      *-</text>
+<text x="1225" y="498" class="lcd" xml:space="preserve">start rehersal? -</text>
+</a>
+<path d="M1435 242 L1435 410" class="edge"/>
+<text x="1450" y="320" class="label" xml:space="preserve">Encoder press → Note71</text>
+<text x="1210" y="290" class="" xml:space="preserve">Start sends immediately; no confirmation.</text>
+<path d="M1210 475 L490 475" class="edge"/>
+<text x="570" y="460" class="label" xml:space="preserve">READY feedback → HOME</text>
+<path d="M1075 225 L1130 225 L1130 340 L265 340 L265 410" class="edge"/>
+<text x="510" y="325" class="label" xml:space="preserve">Existing rehearsal READY → HOME</text>
+<text x="40" y="575" class="" xml:space="preserve">Menu: encoder press opens Restart; turn cycles visible items. BACK returns HOME.</text>
+<a href="menu-reference.html#menu-restart"><rect x="40" y="650" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="678" class="" xml:space="preserve">MENU 1: RESTART TAKE</text>
+<text x="55" y="710" class="lcd" xml:space="preserve">Restart take    -</text>
+<text x="55" y="738" class="lcd" xml:space="preserve">Press to restart-</text>
+</a>
+<a href="menu-reference.html#menu-stop"><rect x="625" y="650" width="450" height="112" rx="10" class="node"/>
+<text x="640" y="678" class="" xml:space="preserve">MENU 2: STOP REHEARSAL</text>
+<text x="640" y="710" class="lcd" xml:space="preserve">Stop rehearsal  -</text>
+<text x="640" y="738" class="lcd" xml:space="preserve">Press to stop   -</text>
+</a>
+<a href="menu-reference.html#menu-remove"><rect x="1210" y="650" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="678" class="" xml:space="preserve">MENU 3: REMOVE SELECTED TAKE</text>
+<text x="1225" y="710" class="lcd" xml:space="preserve">Remove 12 take  -</text>
+<text x="1225" y="738" class="lcd" xml:space="preserve">Press to remove -</text>
+</a>
+<path d="M265 522 L265 650" class="edge"/>
+<text x="280" y="610" class="label" xml:space="preserve">Encoder press</text>
+<path d="M490 695 L625 695" class="edge"/>
+<text x="520" y="680" class="label" xml:space="preserve">Turn +</text>
+<path d="M1075 695 L1210 695" class="edge"/>
+<text x="1100" y="680" class="label" xml:space="preserve">Turn +</text>
+<text x="40" y="810" class="" xml:space="preserve">Turn wraps both directions. Remove is hidden for T00 / T#. Restart also requires confirmation.</text>
+<a href="menu-reference.html#confirm-stop"><rect x="625" y="930" width="450" height="112" rx="10" class="node"/>
+<text x="640" y="958" class="" xml:space="preserve">CONFIRM RESTART / STOP / REMOVE</text>
+<text x="640" y="990" class="lcd" xml:space="preserve">are you sure?   -</text>
+<text x="640" y="1018" class="lcd" xml:space="preserve">                -</text>
+</a>
+<path d="M850 762 L850 930" class="edge"/>
+<text x="865" y="855" class="label" xml:space="preserve">Press Stop</text>
+<path d="M265 762 L265 840 L735 840 L735 930" class="edge"/>
+<text x="340" y="825" class="label" xml:space="preserve">Press Restart</text>
+<path d="M1435 762 L1435 865 L960 865 L960 930" class="edge"/>
+<text x="1120" y="850" class="label" xml:space="preserve">Press Remove N</text>
+<path d="M625 990 L570 990 L570 795 L850 795 L850 762" class="edge"/>
+<text x="80" y="885" class="label" xml:space="preserve">BACK: cancel; return to same item</text>
+<text x="40" y="1100" class="" xml:space="preserve">Encoder confirms: Restart → Note63; Stop → Note72; Remove → Note73. Blank second line. Rotation has no effect.</text>
+<text x="40" y="1135" class="" xml:space="preserve">No side effect before confirmation. Only READY can confirm Stop/Remove. Unsupported host → E013, no command.</text>
+<text x="40" y="1170" class="" xml:space="preserve">Remove captures the selected identity; changed metadata cancels confirmation. The host validates its bound target.</text>
+<text x="40" y="1205" class="" xml:space="preserve">Confirmation: encoder press confirms; BACK cancels; encoder rotation is ignored.</text>
+<a href="menu-reference.html#held-take"><rect x="40" y="1320" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="1348" class="" xml:space="preserve">TAKE HELD</text>
+<text x="55" y="1380" class="lcd" xml:space="preserve">select take     -</text>
+<text x="55" y="1408" class="lcd" xml:space="preserve">take : 12       -</text>
+</a>
+<a href="menu-reference.html#held-song"><rect x="1210" y="1320" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="1348" class="" xml:space="preserve">SONG HELD</text>
+<text x="1225" y="1380" class="lcd" xml:space="preserve">select song     -</text>
+<text x="1225" y="1408" class="lcd" xml:space="preserve">Midnight rehears-al song</text>
+</a>
+<path d="M40 465 L15 465 L15 1370 L40 1370" class="edge"/>
+<text x="40" y="1290" class="label" xml:space="preserve">Hold TAKE from HOME/menu; release restores</text>
+<path d="M490 500 L1170 500 L1170 1370 L1210 1370" class="edge"/>
+<text x="1210" y="1290" class="label" xml:space="preserve">Hold SONG; release restores</text>
+<text x="40" y="1490" class="" xml:space="preserve">Held turn: local preview only. Stable release commits one selection. BACK or changed catalog cancels; no queued turns.</text>
+<text x="40" y="1525" class="" xml:space="preserve">BACK: return HOME and cancel held modes until released. Both held: E011. Confirmation suppresses held navigation.</text>
+<a href="menu-reference.html#error-004"><rect x="40" y="1640" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="1668" class="" xml:space="preserve">HOST / PROTOCOL / STALE ERROR</text>
+<text x="55" y="1700" class="lcd" xml:space="preserve">T12-Midnight reh-earsal song</text>
+<text x="55" y="1728" class="lcd" xml:space="preserve">E004            -</text>
+</a>
+<a href="menu-reference.html#error-013"><rect x="1210" y="1640" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="1668" class="" xml:space="preserve">UNSUPPORTED HOST MENU ACTION</text>
+<text x="1225" y="1700" class="lcd" xml:space="preserve">T12-Midnight reh-earsal song</text>
+<text x="1225" y="1728" class="lcd" xml:space="preserve">E013            -</text>
+</a>
+<text x="40" y="1800" class="" xml:space="preserve">Absent/stale host returns to Waiting recorder; reopening resynchronizes. REC/SAVE closes menus.</text>
+<text x="40" y="1835" class="" xml:space="preserve">Record/Play remain host-gated. Lamp uses confirmed state. Duplicate action presses are silently ignored; no retry.</text>
+<text x="40" y="1870" class="" xml:space="preserve">Startup: power controller, connect Bluetooth MIDI, launch recorder, then start a rehearsal from the laptop or idle prompt.</text>
+<text x="40" y="1950" class="" xml:space="preserve">LOCAL BRIGHTNESS: turn through the menu to Brightness; Remove is skipped when there are no takes.</text>
+<a href="menu-reference.html#menu-brightness"><rect x="40" y="2000" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="2028" class="" xml:space="preserve">MENU: BRIGHTNESS</text>
+<text x="55" y="2060" class="lcd" xml:space="preserve">Brightness      -</text>
+<text x="55" y="2088" class="lcd" xml:space="preserve">Press to adjust -</text>
+</a>
+<a href="menu-reference.html#edit-brightness"><rect x="1210" y="2000" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="2028" class="" xml:space="preserve">BRIGHTNESS PREVIEW</text>
+<text x="1225" y="2060" class="lcd" xml:space="preserve">Brightness      -</text>
+<text x="1225" y="2088" class="lcd" xml:space="preserve">50%  Press save -</text>
+</a>
+<path d="M490 2030 L1210 2030" class="edge"/>
+<text x="630" y="2015" class="label" xml:space="preserve">Encoder press: edit; turn previews 0–100%</text>
+<path d="M1210 2090 L490 2090" class="edge"/>
+<text x="580" y="2135" class="label" xml:space="preserve">Press: save / BACK: cancel → Brightness menu</text>
+<text x="40" y="2200" class="" xml:space="preserve">Stored locally across reboot. No MIDI commands; transport state colours retain their hue.</text>
+<text x="40" y="2310" class="" xml:space="preserve">LCD TIMING DIAGNOSTIC: open from menu. BACK exits; rotation is ignored. No MIDI commands.</text>
+<a href="menu-reference.html#lcd-test-zero"><rect x="40" y="2360" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="2388" class="" xml:space="preserve">ZERO: ONBOARD LED OFF</text>
+<text x="55" y="2420" class="lcd" xml:space="preserve">LCD timer ZERO  -</text>
+<text x="55" y="2448" class="lcd" xml:space="preserve">0000000000 ms   -</text>
+</a>
+<a href="menu-reference.html#lcd-test-run"><rect x="625" y="2360" width="450" height="112" rx="10" class="node"/>
+<text x="640" y="2388" class="" xml:space="preserve">RUN: ONBOARD LED GREEN</text>
+<text x="640" y="2420" class="lcd" xml:space="preserve">LCD timer RUN   -</text>
+<text x="640" y="2448" class="lcd" xml:space="preserve">0000001234 ms   -</text>
+</a>
+<a href="menu-reference.html#lcd-test-stop"><rect x="1210" y="2360" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="2388" class="" xml:space="preserve">STOP: ONBOARD LED RED</text>
+<text x="1225" y="2420" class="lcd" xml:space="preserve">LCD timer STOP  -</text>
+<text x="1225" y="2448" class="lcd" xml:space="preserve">0000001234 ms   -</text>
+</a>
+<path d="M490 2400 L625 2400" class="edge"/>
+<text x="530" y="2385" class="label" xml:space="preserve">Press</text>
+<path d="M1075 2400 L1210 2400" class="edge"/>
+<text x="1115" y="2385" class="label" xml:space="preserve">Press</text>
+<path d="M1435 2472 L1435 2540 L265 2540 L265 2472" class="edge"/>
+<text x="720" y="2580" class="label" xml:space="preserve">Press: reset to ZERO</text>
+</svg>
+</div><h2>All screen variants</h2><div class="grid">
+<article class="card" id="boot"><div class="id">boot</div><h3>Startup buffer only; normal update may replace it before LCD initialization completes</h3><div class="lcd">Starting...     <span class="end">-</span>
+Reha controller <span class="end">-</span></div></article>
+<article class="card" id="home-ready"><div class="id">home-ready</div><h3>Home: ready; volume 50 percent</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+READY      V:050<span class="end">-</span></div></article>
+<article class="card" id="menu-lcd-test"><div class="id">menu-lcd-test</div><h3>Temporary LCD measurement menu</h3><div class="lcd">LCD timing test <span class="end">-</span>
+Press to test   <span class="end">-</span></div></article>
+<article class="card" id="lcd-test-zero"><div class="id">lcd-test-zero</div><h3>LED off; press to start</h3><div class="lcd">LCD timer ZERO  <span class="end">-</span>
+0000000000 ms   <span class="end">-</span></div></article>
+<article class="card" id="lcd-test-run"><div class="id">lcd-test-run</div><h3>LED green; press freezes elapsed milliseconds</h3><div class="lcd">LCD timer RUN   <span class="end">-</span>
+0000001234 ms   <span class="end">-</span></div></article>
+<article class="card" id="lcd-test-stop"><div class="id">lcd-test-stop</div><h3>LED red; press resets to zero</h3><div class="lcd">LCD timer STOP  <span class="end">-</span>
+0000001234 ms   <span class="end">-</span></div></article>
+<article class="card" id="menu-brightness"><div class="id">menu-brightness</div><h3>Local backlight setting</h3><div class="lcd">Brightness      <span class="end">-</span>
+Press to adjust <span class="end">-</span></div></article>
+<article class="card" id="edit-brightness"><div class="id">edit-brightness</div><h3>Turn to preview; press saves, BACK cancels</h3><div class="lcd">Brightness      <span class="end">-</span>
+50%  Press save <span class="end">-</span></div></article>
+<article class="card" id="home-rec"><div class="id">home-rec</div><h3>Home: recording; volume remains visible</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+REC        V:050<span class="end">-</span></div></article>
+<article class="card" id="home-play"><div class="id">home-play</div><h3>Home: playback; volume remains visible</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+PLAY       V:050<span class="end">-</span></div></article>
+<article class="card" id="home-save"><div class="id">home-save</div><h3>Home: saving; lamp flashes</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+SAVE       V:050<span class="end">-</span></div></article>
+<article class="card" id="home-zero"><div class="id">home-zero</div><h3>Home: volume zero</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+READY      V:000<span class="end">-</span></div></article>
+<article class="card" id="home-full"><div class="id">home-full</div><h3>Home: volume 100 percent</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+READY      V:100<span class="end">-</span></div></article>
+<article class="card" id="home-volume-unknown"><div class="id">home-volume-unknown</div><h3>Home: no volume feedback yet</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+READY      V:---<span class="end">-</span></div></article>
+<article class="card" id="home-take-unknown"><div class="id">home-take-unknown</div><h3>Host supplied song without take number: do not invent one</h3><div class="lcd">T#-Midnight rehe<span class="end">-</span>arsal song
+READY      V:050<span class="end">-</span></div></article>
+<article class="card" id="waiting-initial"><div class="id">waiting-initial</div><h3>Feedback not fresh, with no identity or volume available</h3><div class="lcd">Bluetooth MIDI  <span class="end">-</span>
+Waiting recorder<span class="end">-</span></div></article>
+<article class="card" id="home-empty"><div class="id">home-empty</div><h3>No identity metadata yet</h3><div class="lcd">T#-?            <span class="end">-</span>
+READY      V:050<span class="end">-</span></div></article>
+<article class="card" id="menu-restart"><div class="id">menu-restart</div><h3>Restart take item: press requests restart</h3><div class="lcd">Restart take    <span class="end">-</span>
+Press to restart<span class="end">-</span></div></article>
+<article class="card" id="menu-stop"><div class="id">menu-stop</div><h3>Stop rehearsal menu item; press opens confirmation</h3><div class="lcd">Stop rehearsal  <span class="end">-</span>
+Press to stop   <span class="end">-</span></div></article>
+<article class="card" id="menu-remove"><div class="id">menu-remove</div><h3>Remove selected take; hidden for zero/unknown</h3><div class="lcd">Remove 12 take  <span class="end">-</span>
+Press to remove <span class="end">-</span></div></article>
+<article class="card" id="confirm-stop"><div class="id">confirm-stop</div><h3>Stop rehearsal confirmation: encoder yes, BACK no; blank second row</h3><div class="lcd">are you sure?   <span class="end">-</span>
+                <span class="end">-</span></div></article>
+<article class="card" id="confirm-remove"><div class="id">confirm-remove</div><h3>Remove selected take confirmation: encoder yes, BACK no</h3><div class="lcd">are you sure?   <span class="end">-</span>
+                <span class="end">-</span></div></article>
+<article class="card" id="idle-start"><div class="id">idle-start</div><h3>Explicit host idle plus capability: connected / start rehersal?</h3><div class="lcd">connected       <span class="end">-</span>
+start rehersal? <span class="end">-</span></div></article>
+<article class="card" id="idle-start-pending"><div class="id">idle-start-pending</div><h3>Start sends immediately; pending star without confirmation</h3><div class="lcd">connected      *<span class="end">-</span>
+start rehersal? <span class="end">-</span></div></article>
+<article class="card" id="confirm-restart"><div class="id">confirm-restart</div><h3>Restart take confirmation: encoder yes, BACK no</h3><div class="lcd">are you sure?   <span class="end">-</span>
+                <span class="end">-</span></div></article>
+<article class="card" id="menu-start-unavailable"><div class="id">menu-start-unavailable</div><h3>Recorder not ready overrides and closes the menu</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+E005            <span class="end">-</span></div></article>
+<article class="card" id="home-pending"><div class="id">home-pending</div><h3>Home: pending acknowledgement adds a star to status, not song</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+READY*     V:050<span class="end">-</span></div></article>
+<article class="card" id="menu-pending"><div class="id">menu-pending</div><h3>Menu: command awaiting acknowledgement</h3><div class="lcd">Restart take   *<span class="end">-</span>
+Press to restart<span class="end">-</span></div></article>
+<article class="card" id="held-take"><div class="id">held-take</div><h3>Hold TAKE; turn for previous/next take</h3><div class="lcd">select take     <span class="end">-</span>
+take : 12       <span class="end">-</span></div></article>
+<article class="card" id="held-song"><div class="id">held-song</div><h3>Hold SONG; turn for previous/next song</h3><div class="lcd">select song     <span class="end">-</span>
+Midnight rehears<span class="end">-</span>al song</div></article>
+<article class="card" id="held-take-updating"><div class="id">held-take-updating</div><h3>Take list loading: knob ignored, heading unchanged</h3><div class="lcd">select take     <span class="end">-</span>
+Updating list   <span class="end">-</span></div></article>
+<article class="card" id="held-song-updating"><div class="id">held-song-updating</div><h3>Song list loading: knob ignored, heading unchanged</h3><div class="lcd">select song     <span class="end">-</span>
+Updating list   <span class="end">-</span></div></article>
+<article class="card" id="held-take-unknown"><div class="id">held-take-unknown</div><h3>TAKE: number not supplied by host</h3><div class="lcd">select take     <span class="end">-</span>
+take : 00       <span class="end">-</span></div></article>
+<article class="card" id="held-song-unknown"><div class="id">held-song-unknown</div><h3>SONG: name not supplied by host</h3><div class="lcd">select song     <span class="end">-</span>
+?               <span class="end">-</span></div></article>
+<article class="card" id="held-take-pending"><div class="id">held-take-pending</div><h3>TAKE request awaiting acknowledgement</h3><div class="lcd">select take     <span class="end">-</span>
+Updating list   <span class="end">-</span></div></article>
+<article class="card" id="held-song-pending"><div class="id">held-song-pending</div><h3>SONG request awaiting acknowledgement</h3><div class="lcd">select song     <span class="end">-</span>
+Updating list   <span class="end">-</span></div></article>
+<article class="card" id="flow-power"><div class="id">flow-power</div><h3>Controller powers up before BLE connects</h3><div class="lcd">Bluetooth MIDI  <span class="end">-</span>
+Disconnected    <span class="end">-</span></div></article>
+<article class="card" id="flow-sync"><div class="id">flow-sync</div><h3>BLE connected; waiting for initial recorder feedback</h3><div class="lcd">Bluetooth MIDI  <span class="end">-</span>
+Waiting recorder<span class="end">-</span></div></article>
+<article class="card" id="flow-idle"><div class="id">flow-idle</div><h3>Healthy recorder connected; no rehearsal open</h3><div class="lcd">connected       <span class="end">-</span>
+start rehersal? <span class="end">-</span></div></article>
+<article class="card" id="home-no-takes"><div class="id">home-no-takes</div><h3>Host explicitly reports no takes as T0</h3><div class="lcd">T00-Midnight    <span class="end">-</span>
+READY      V:050<span class="end">-</span></div></article>
+<article class="card" id="flow-ready"><div class="id">flow-ready</div><h3>Laptop has started rehearsal; song Midnight, no kept takes yet</h3><div class="lcd">T00-Midnight    <span class="end">-</span>
+READY      V:050<span class="end">-</span></div></article>
+<article class="card" id="flow-record-request"><div class="id">flow-record-request</div><h3>Record request sent; REC* means requested, not confirmed</h3><div class="lcd">T00-Midnight    <span class="end">-</span>
+REC*       V:050<span class="end">-</span></div></article>
+<article class="card" id="flow-record-ack"><div class="id">flow-record-ack</div><h3>Acknowledgement accepted; retain REC* until recording state arrives</h3><div class="lcd">T00-Midnight    <span class="end">-</span>
+REC*       V:050<span class="end">-</span></div></article>
+<article class="card" id="flow-recording"><div class="id">flow-recording</div><h3>Recorder confirms recording take 1; lamp now on</h3><div class="lcd">T01-Midnight    <span class="end">-</span>
+REC        V:050<span class="end">-</span></div></article>
+<article class="card" id="flow-stop-request"><div class="id">flow-stop-request</div><h3>Record pressed again; stop/keep requested</h3><div class="lcd">T01-Midnight    <span class="end">-</span>
+SAVE*      V:050<span class="end">-</span></div></article>
+<article class="card" id="flow-stop-ack"><div class="id">flow-stop-ack</div><h3>Stop accepted; waiting for recorder Saving/Ready state</h3><div class="lcd">T01-Midnight    <span class="end">-</span>
+SAVE*      V:050<span class="end">-</span></div></article>
+<article class="card" id="flow-saving"><div class="id">flow-saving</div><h3>Recorder confirms Saving; lamp blinks</h3><div class="lcd">T01-Midnight    <span class="end">-</span>
+SAVE       V:050<span class="end">-</span></div></article>
+<article class="card" id="flow-kept"><div class="id">flow-kept</div><h3>Recorder confirms Ready; take kept; sequence ends</h3><div class="lcd">T01-Midnight    <span class="end">-</span>
+READY      V:050<span class="end">-</span></div></article>
+<article class="card" id="error-001"><div class="id">error-001</div><h3>Bluetooth MIDI disconnected</h3><div class="lcd">Bluetooth MIDI  <span class="end">-</span>
+Disconnected    <span class="end">-</span></div></article>
+<article class="card" id="error-002"><div class="id">error-002</div><h3>Recorder feedback missing or stale (diagnostic category)</h3><div class="lcd">Bluetooth MIDI  <span class="end">-</span>
+Waiting recorder<span class="end">-</span></div></article>
+<article class="card" id="error-003"><div class="id">error-003</div><h3>Unsupported protocol version</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+E003            <span class="end">-</span></div></article>
+<article class="card" id="error-004"><div class="id">error-004</div><h3>Recorder reported ERROR</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+E004            <span class="end">-</span></div></article>
+<article class="card" id="error-005"><div class="id">error-005</div><h3>Recorder not ready</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+E005            <span class="end">-</span></div></article>
+<article class="card" id="error-006"><div class="id">error-006</div><h3>Command busy</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+E006            <span class="end">-</span></div></article>
+<article class="card" id="error-007"><div class="id">error-007</div><h3>Requested action unavailable</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+E007            <span class="end">-</span></div></article>
+<article class="card" id="error-008"><div class="id">error-008</div><h3>Relative volume unsupported</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+E008            <span class="end">-</span></div></article>
+<article class="card" id="error-009"><div class="id">error-009</div><h3>Recorder command failed</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+E009            <span class="end">-</span></div></article>
+<article class="card" id="error-010"><div class="id">error-010</div><h3>Command confirmation timed out</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+E010            <span class="end">-</span></div></article>
+<article class="card" id="error-011"><div class="id">error-011</div><h3>TAKE and SONG held together</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+E011            <span class="end">-</span></div></article>
+<article class="card" id="error-012"><div class="id">error-012</div><h3>Start rehearsal unsupported in this context</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+E012            <span class="end">-</span></div></article>
+<article class="card" id="error-013"><div class="id">error-013</div><h3>Recorder does not support this menu action</h3><div class="lcd">T12-Midnight reh<span class="end">-</span>earsal song
+E013            <span class="end">-</span></div></article>
+</div><h2>Error codes</h2><table><tr><th>Code</th><th>Meaning</th><th>What to do</th></tr>
+<tr><td>E001</td><td>Bluetooth MIDI disconnected</td><td>Connect the controller to one MIDI host. USB provides power, not USB MIDI.</td></tr>
+<tr><td>E002</td><td>Recorder feedback missing or stale (diagnostic category)</td><td>The LCD shows Bluetooth MIDI / Waiting recorder, including after app closure. Feedback expires after 3.5 seconds. Reopen the recorder and check both MIDI ports; commands stay disabled until fresh feedback returns.</td></tr>
+<tr><td>E003</td><td>Unsupported protocol version</td><td>Use matching controller/recorder protocol versions. No command is sent until compatible.</td></tr>
+<tr><td>E004</td><td>Recorder reported ERROR</td><td>Inspect the recorder&#x27;s actual error/log and preserve pending takes. CC119=4 carries no detailed cause; this code does not diagnose it.</td></tr>
+<tr><td>E005</td><td>Recorder not ready</td><td>Recorder sends state 5. It indicates a pending take or library problem; an older host also uses it for no active rehearsal. A healthy new host sends explicit idle state 6. Inspect the laptop; the code alone cannot distinguish these.</td></tr>
+<tr><td>E006</td><td>Command busy</td><td>The recorder rejected this request as Busy; it was not queued. Wait for its current work to finish before deliberately retrying. Additional local presses while waiting are silently ignored and never show this code. No automatic retry.</td></tr>
+<tr><td>E007</td><td>Requested action unavailable</td><td>Check recorder state and navigation support. Also covers a host Unavailable result. Stop recording/saving before navigation.</td></tr>
+<tr><td>E008</td><td>Relative volume unsupported</td><td>Update the recorder to support relative-volume capability. No guessed absolute setting is sent.</td></tr>
+<tr><td>E009</td><td>Recorder command failed</td><td>Inspect recorder error/log; retain any unsaved take. Result Error carries no detailed cause.</td></tr>
+<tr><td>E010</td><td>Command confirmation timed out</td><td>Check both MIDI directions and recorder health. Acknowledgement timeout is 1.5 seconds; after an accepted transport request, state confirmation timeout is 3.5 seconds; do not blindly retry a Record/Play toggle.</td></tr>
+<tr><td>E011</td><td>TAKE and SONG held together</td><td>Release one button, or BACK to cancel held modes until both are released.</td></tr>
+<tr><td>E012</td><td>Start rehearsal unsupported in this context</td><td>Use the explicit connected idle start screen with a lifecycle-capable host. Check saved audio setup and matching lifecycle-capable recorder.</td></tr>
+<tr><td>E013</td><td>Recorder does not support this menu action</td><td>Stop rehearsal and Remove take require the new optional host capabilities. No command is sent to an older recorder. Removal also requires matching selection-reference support.</td></tr>
+</table><h2>Detailed behavior</h2><pre class="source">
+# LCD menu and screen reference — revision K
+
+Generated from the DesktopPanel renderer and the shared error table in
+PanelDisplay.hpp. Each row inserts `-` after column 16; characters to its right
+are retained in this reference but are not shown on the LCD. Short rows are padded.
+Text does not scroll.
+
+## Home
+
+The top row shows `Tnn-Song`: T00 for an explicitly empty song, T01 for take 1,
+T100 for take 100, and T# for an unknown take. The bottom row shows READY, REC,
+PLAY or SAVE, with `V:000`–`V:100` in columns 12–16. V:--- means unknown volume.
+A pending transport request appends `*` to its status until acknowledgement and
+matching state feedback arrive. Record illumination follows confirmed host state.
+
+## Menu and selection
+
+The menu contains Restart take, Stop rehearsal, Remove N take, Brightness and
+LCD timing test. Remove is hidden for zero/unknown take. Restart, Stop and Remove
+require confirmation: encoder confirms, BACK cancels. Stop and Remove require
+READY. Start rehearsal is available at the explicit connected idle prompt and
+sends immediately. Missing host capabilities display E013.
+
+Hold TAKE or SONG and turn to preview a cached selection; release to apply it.
+TAKE shows `select take` / `take : nn`; SONG shows `select song` / song name.
+An incomplete list shows `Updating list` below the unchanged heading. Turns
+while loading are ignored, and release sends no command. Background catalog
+updates resume selection when complete. BACK cancels preview.
+
+## Brightness
+
+Turn in 5% steps over 0–100%; encoder saves, BACK cancels. Default 10%.
+The percentage persists in controller Preferences and scales status colours.
+Text contrast has no software setting in the documented LCD instruction set.
+
+## LCD timing test
+
+Encoder press cycles ZERO (LED off) → RUN (green) → STOP (red) → ZERO.
+The lower row shows milliseconds, sampled every 10ms during RUN. STOP freezes
+elapsed time at accepted input. Rotation is ignored; BACK exits. Host loss or
+an incompatible transport state closes the test. Record/Play buttons retain
+their transport actions. See [timing diagnostic](controller-diagnostics.md#lcd-timing-test).
+
+## Display priority
+
+1. Disconnected, missing/stale host feedback, incompatible protocol or host error.
+2. Conflicting TAKE + SONG buttons (E011).
+3. Transient errors on the bottom row; the current heading remains visible.
+4. Held selection and catalog-loading screens.
+5. Confirmation, idle, menu or home.
+
+Errors omit volume. Transient errors clear after two seconds, BACK, or an accepted
+command. Persistent conditions remain until resolved. Additional local presses
+while a command is pending are ignored. REC/SAVE closes the menu and disables
+selection. Bluetooth loss shows `Bluetooth MIDI` / `Disconnected`; absent or stale
+recorder feedback shows `Bluetooth MIDI` / `Waiting recorder`.
+
+## Rendered screens
+
+
+## Controls and transitions
+
+| Input | Behaviour |
+| --- | --- |
+| Encoder turn at home | Relative playback volume; wait for host feedback to display it. |
+| Encoder press at home | Open menu at READY/PLAY; start rehearsal at explicit idle. |
+| Encoder turn in menu | Cycle available items. |
+| Encoder press on Restart / Stop / Remove | Open confirmation. |
+| Encoder press in confirmation | Submit the action if capability/state and captured identity still match. |
+| Encoder press in Brightness | Save changed brightness and return to menu. |
+| BACK in confirmation / Brightness / LCD test | Cancel or exit to menu. |
+| BACK in menu | Return home. |
+| Hold TAKE / SONG and turn | Preview cached takes / songs in READY/PLAY. |
+| Stable release | Apply one changed selection from the current catalog. |
+| Hold TAKE and SONG | E011; no selection or volume action. |
+| BACK while held | Cancel selection until both buttons are released; return home. |
+| Encoder press while TAKE / SONG held | Ignored. |
+| Press while acknowledgement/state pending | Ignored. |
+| Turn during pending selection or mode transition | Discarded. |
+| Record / Play | Transport action subject to confirmed host state. |
+| BACK held during RESET | ROM download mode; no firmware LCD screen. |
+
+## Errors
+
+
+E001–E005 describe persistent conditions. E001 and E002 use connection-status
+text on the LCD. E006–E010 and E012–E013 are transient; E011 lasts while both
+selection buttons are held. Error screens omit volume.
+
+Codes are local LCD identifiers. Host state 4 maps to E004; a command Error result
+maps to E009. Neither carries the recorder&#x27;s detailed cause. The recorder log
+contains application-specific details. A timeout does not establish whether the
+action executed; Record/Play toggles are not retried automatically.
+
+</pre></main></html>

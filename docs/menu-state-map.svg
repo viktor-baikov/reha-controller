@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="2650" viewBox="0 0 1700 2650"><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#45667a"/></marker></defs><rect width="1700" height="2650" fill="#f8fafc"/><style>text{font-family:Arial,sans-serif;fill:#163447;font-size:18px}.head{font-size:26px;font-weight:bold}.node{fill:white;stroke:#7397ac;stroke-width:2}.edge{fill:none;stroke:#45667a;stroke-width:2;marker-end:url(#arrow)}.label{font-size:16px;paint-order:stroke;stroke:#f8fafc;stroke-width:6px}.lcd{font-family:monospace;white-space:pre}</style>
+<text x="40" y="45" class="head" xml:space="preserve">Revision K — startup, context menu and confirmation</text>
+<text x="40" y="80" class="" xml:space="preserve">Firmware renderer snapshots. Idle, lifecycle and deletion require negotiated host capabilities.</text>
+<a href="menu-reference.html#flow-power"><rect x="40" y="130" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="158" class="" xml:space="preserve">NO BLUETOOTH MIDI CONNECTION</text>
+<text x="55" y="190" class="lcd" xml:space="preserve">Bluetooth MIDI  -</text>
+<text x="55" y="218" class="lcd" xml:space="preserve">Disconnected    -</text>
+</a>
+<a href="menu-reference.html#flow-sync"><rect x="625" y="130" width="450" height="112" rx="10" class="node"/>
+<text x="640" y="158" class="" xml:space="preserve">PC CONNECTED, WAITING FOR APP</text>
+<text x="640" y="190" class="lcd" xml:space="preserve">Bluetooth MIDI  -</text>
+<text x="640" y="218" class="lcd" xml:space="preserve">Waiting recorder-</text>
+</a>
+<a href="menu-reference.html#idle-start"><rect x="1210" y="130" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="158" class="" xml:space="preserve">EXPLICIT IDLE: NO REHEARSAL</text>
+<text x="1225" y="190" class="lcd" xml:space="preserve">connected       -</text>
+<text x="1225" y="218" class="lcd" xml:space="preserve">start rehersal? -</text>
+</a>
+<path d="M490 170 L625 170" class="edge"/>
+<text x="515" y="155" class="label" xml:space="preserve">BLE up</text>
+<path d="M1075 170 L1210 170" class="edge"/>
+<text x="1090" y="155" class="label" xml:space="preserve">Idle + bit32</text>
+<a href="menu-reference.html#home-ready"><rect x="40" y="410" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="438" class="" xml:space="preserve">ACTIVE REHEARSAL HOME</text>
+<text x="55" y="470" class="lcd" xml:space="preserve">T12-Midnight reh-earsal song</text>
+<text x="55" y="498" class="lcd" xml:space="preserve">READY      V:050-</text>
+</a>
+<a href="menu-reference.html#idle-start-pending"><rect x="1210" y="410" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="438" class="" xml:space="preserve">START REQUEST PENDING</text>
+<text x="1225" y="470" class="lcd" xml:space="preserve">connected      *-</text>
+<text x="1225" y="498" class="lcd" xml:space="preserve">start rehersal? -</text>
+</a>
+<path d="M1435 242 L1435 410" class="edge"/>
+<text x="1450" y="320" class="label" xml:space="preserve">Encoder press → Note71</text>
+<text x="1210" y="290" class="" xml:space="preserve">Start sends immediately; no confirmation.</text>
+<path d="M1210 475 L490 475" class="edge"/>
+<text x="570" y="460" class="label" xml:space="preserve">READY feedback → HOME</text>
+<path d="M1075 225 L1130 225 L1130 340 L265 340 L265 410" class="edge"/>
+<text x="510" y="325" class="label" xml:space="preserve">Existing rehearsal READY → HOME</text>
+<text x="40" y="575" class="" xml:space="preserve">Menu: encoder press opens Restart; turn cycles visible items. BACK returns HOME.</text>
+<a href="menu-reference.html#menu-restart"><rect x="40" y="650" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="678" class="" xml:space="preserve">MENU 1: RESTART TAKE</text>
+<text x="55" y="710" class="lcd" xml:space="preserve">Restart take    -</text>
+<text x="55" y="738" class="lcd" xml:space="preserve">Press to restart-</text>
+</a>
+<a href="menu-reference.html#menu-stop"><rect x="625" y="650" width="450" height="112" rx="10" class="node"/>
+<text x="640" y="678" class="" xml:space="preserve">MENU 2: STOP REHEARSAL</text>
+<text x="640" y="710" class="lcd" xml:space="preserve">Stop rehearsal  -</text>
+<text x="640" y="738" class="lcd" xml:space="preserve">Press to stop   -</text>
+</a>
+<a href="menu-reference.html#menu-remove"><rect x="1210" y="650" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="678" class="" xml:space="preserve">MENU 3: REMOVE SELECTED TAKE</text>
+<text x="1225" y="710" class="lcd" xml:space="preserve">Remove 12 take  -</text>
+<text x="1225" y="738" class="lcd" xml:space="preserve">Press to remove -</text>
+</a>
+<path d="M265 522 L265 650" class="edge"/>
+<text x="280" y="610" class="label" xml:space="preserve">Encoder press</text>
+<path d="M490 695 L625 695" class="edge"/>
+<text x="520" y="680" class="label" xml:space="preserve">Turn +</text>
+<path d="M1075 695 L1210 695" class="edge"/>
+<text x="1100" y="680" class="label" xml:space="preserve">Turn +</text>
+<text x="40" y="810" class="" xml:space="preserve">Turn wraps both directions. Remove is hidden for T00 / T#. Restart also requires confirmation.</text>
+<a href="menu-reference.html#confirm-stop"><rect x="625" y="930" width="450" height="112" rx="10" class="node"/>
+<text x="640" y="958" class="" xml:space="preserve">CONFIRM RESTART / STOP / REMOVE</text>
+<text x="640" y="990" class="lcd" xml:space="preserve">are you sure?   -</text>
+<text x="640" y="1018" class="lcd" xml:space="preserve">                -</text>
+</a>
+<path d="M850 762 L850 930" class="edge"/>
+<text x="865" y="855" class="label" xml:space="preserve">Press Stop</text>
+<path d="M265 762 L265 840 L735 840 L735 930" class="edge"/>
+<text x="340" y="825" class="label" xml:space="preserve">Press Restart</text>
+<path d="M1435 762 L1435 865 L960 865 L960 930" class="edge"/>
+<text x="1120" y="850" class="label" xml:space="preserve">Press Remove N</text>
+<path d="M625 990 L570 990 L570 795 L850 795 L850 762" class="edge"/>
+<text x="80" y="885" class="label" xml:space="preserve">BACK: cancel; return to same item</text>
+<text x="40" y="1100" class="" xml:space="preserve">Encoder confirms: Restart → Note63; Stop → Note72; Remove → Note73. Blank second line. Rotation has no effect.</text>
+<text x="40" y="1135" class="" xml:space="preserve">No side effect before confirmation. Only READY can confirm Stop/Remove. Unsupported host → E013, no command.</text>
+<text x="40" y="1170" class="" xml:space="preserve">Remove captures the selected identity; changed metadata cancels confirmation. The host validates its bound target.</text>
+<text x="40" y="1205" class="" xml:space="preserve">Confirmation: encoder press confirms; BACK cancels; encoder rotation is ignored.</text>
+<a href="menu-reference.html#held-take"><rect x="40" y="1320" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="1348" class="" xml:space="preserve">TAKE HELD</text>
+<text x="55" y="1380" class="lcd" xml:space="preserve">select take     -</text>
+<text x="55" y="1408" class="lcd" xml:space="preserve">take : 12       -</text>
+</a>
+<a href="menu-reference.html#held-song"><rect x="1210" y="1320" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="1348" class="" xml:space="preserve">SONG HELD</text>
+<text x="1225" y="1380" class="lcd" xml:space="preserve">select song     -</text>
+<text x="1225" y="1408" class="lcd" xml:space="preserve">Midnight rehears-al song</text>
+</a>
+<path d="M40 465 L15 465 L15 1370 L40 1370" class="edge"/>
+<text x="40" y="1290" class="label" xml:space="preserve">Hold TAKE from HOME/menu; release restores</text>
+<path d="M490 500 L1170 500 L1170 1370 L1210 1370" class="edge"/>
+<text x="1210" y="1290" class="label" xml:space="preserve">Hold SONG; release restores</text>
+<text x="40" y="1490" class="" xml:space="preserve">Held turn: local preview only. Stable release commits one selection. BACK or changed catalog cancels; no queued turns.</text>
+<text x="40" y="1525" class="" xml:space="preserve">BACK: return HOME and cancel held modes until released. Both held: E011. Confirmation suppresses held navigation.</text>
+<a href="menu-reference.html#error-004"><rect x="40" y="1640" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="1668" class="" xml:space="preserve">HOST / PROTOCOL / STALE ERROR</text>
+<text x="55" y="1700" class="lcd" xml:space="preserve">T12-Midnight reh-earsal song</text>
+<text x="55" y="1728" class="lcd" xml:space="preserve">E004            -</text>
+</a>
+<a href="menu-reference.html#error-013"><rect x="1210" y="1640" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="1668" class="" xml:space="preserve">UNSUPPORTED HOST MENU ACTION</text>
+<text x="1225" y="1700" class="lcd" xml:space="preserve">T12-Midnight reh-earsal song</text>
+<text x="1225" y="1728" class="lcd" xml:space="preserve">E013            -</text>
+</a>
+<text x="40" y="1800" class="" xml:space="preserve">Absent/stale host returns to Waiting recorder; reopening resynchronizes. REC/SAVE closes menus.</text>
+<text x="40" y="1835" class="" xml:space="preserve">Record/Play remain host-gated. Lamp uses confirmed state. Duplicate action presses are silently ignored; no retry.</text>
+<text x="40" y="1870" class="" xml:space="preserve">Startup: power controller, connect Bluetooth MIDI, launch recorder, then start a rehearsal from the laptop or idle prompt.</text>
+<text x="40" y="1950" class="" xml:space="preserve">LOCAL BRIGHTNESS: turn through the menu to Brightness; Remove is skipped when there are no takes.</text>
+<a href="menu-reference.html#menu-brightness"><rect x="40" y="2000" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="2028" class="" xml:space="preserve">MENU: BRIGHTNESS</text>
+<text x="55" y="2060" class="lcd" xml:space="preserve">Brightness      -</text>
+<text x="55" y="2088" class="lcd" xml:space="preserve">Press to adjust -</text>
+</a>
+<a href="menu-reference.html#edit-brightness"><rect x="1210" y="2000" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="2028" class="" xml:space="preserve">BRIGHTNESS PREVIEW</text>
+<text x="1225" y="2060" class="lcd" xml:space="preserve">Brightness      -</text>
+<text x="1225" y="2088" class="lcd" xml:space="preserve">50%  Press save -</text>
+</a>
+<path d="M490 2030 L1210 2030" class="edge"/>
+<text x="630" y="2015" class="label" xml:space="preserve">Encoder press: edit; turn previews 0–100%</text>
+<path d="M1210 2090 L490 2090" class="edge"/>
+<text x="580" y="2135" class="label" xml:space="preserve">Press: save / BACK: cancel → Brightness menu</text>
+<text x="40" y="2200" class="" xml:space="preserve">Stored locally across reboot. No MIDI commands; transport state colours retain their hue.</text>
+<text x="40" y="2310" class="" xml:space="preserve">LCD TIMING DIAGNOSTIC: open from menu. BACK exits; rotation is ignored. No MIDI commands.</text>
+<a href="menu-reference.html#lcd-test-zero"><rect x="40" y="2360" width="450" height="112" rx="10" class="node"/>
+<text x="55" y="2388" class="" xml:space="preserve">ZERO: ONBOARD LED OFF</text>
+<text x="55" y="2420" class="lcd" xml:space="preserve">LCD timer ZERO  -</text>
+<text x="55" y="2448" class="lcd" xml:space="preserve">0000000000 ms   -</text>
+</a>
+<a href="menu-reference.html#lcd-test-run"><rect x="625" y="2360" width="450" height="112" rx="10" class="node"/>
+<text x="640" y="2388" class="" xml:space="preserve">RUN: ONBOARD LED GREEN</text>
+<text x="640" y="2420" class="lcd" xml:space="preserve">LCD timer RUN   -</text>
+<text x="640" y="2448" class="lcd" xml:space="preserve">0000001234 ms   -</text>
+</a>
+<a href="menu-reference.html#lcd-test-stop"><rect x="1210" y="2360" width="450" height="112" rx="10" class="node"/>
+<text x="1225" y="2388" class="" xml:space="preserve">STOP: ONBOARD LED RED</text>
+<text x="1225" y="2420" class="lcd" xml:space="preserve">LCD timer STOP  -</text>
+<text x="1225" y="2448" class="lcd" xml:space="preserve">0000001234 ms   -</text>
+</a>
+<path d="M490 2400 L625 2400" class="edge"/>
+<text x="530" y="2385" class="label" xml:space="preserve">Press</text>
+<path d="M1075 2400 L1210 2400" class="edge"/>
+<text x="1115" y="2385" class="label" xml:space="preserve">Press</text>
+<path d="M1435 2472 L1435 2540 L265 2540 L265 2472" class="edge"/>
+<text x="720" y="2580" class="label" xml:space="preserve">Press: reset to ZERO</text>
+</svg>
