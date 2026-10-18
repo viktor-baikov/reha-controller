@@ -33,9 +33,8 @@ build outputs are excluded from Git. See [build and upload](rehearsal_remote/REA
   then select controller input and feedback output in the recorder.
 - **Windows 11 x64:** pair in Bluetooth settings and select the Bluetooth MIDI
   input in the recorder. The matching output is selected automatically when unique.
-  The recorder integration uses pylibremidi with the recorder's original
-  Windows MIDI Services/WinMM backend order. Bluetooth operation with this order
-  requires Windows hardware validation.
+  The recorder uses pylibremidi's WinRT backend for controller ports when
+  instrument MIDI uses WinMM. Instrument MIDI keeps its existing backend.
 - **Linux:** not validated.
 
 One computer owns the BLE connection at a time. Both MIDI directions are

@@ -27,7 +27,7 @@ feedback publisher for a controller connection.
 ## Recorder integration
 
 The recorder is a separate checkout with its own dependencies and tests.
-`python tests/run_all.py` in the matching controller integration runs eleven common
+`python tests/run_all.py` in the matching controller integration runs twelve common
 Python suites using fake MIDI/audio and disposable data.
 
 `python3 tools/remote_recorder_probe.py --recorder <source-checkout>` exercises

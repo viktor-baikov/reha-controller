@@ -24,7 +24,7 @@ def main():
     # App/test/library diagnostic output must not corrupt the JSON channel.
     sys.stdout = sys.stderr
     from test_engine import fresh_api, np, SR
-    from rehearsal_recorder.midi.ports import open_system
+    from rehearsal_recorder.midi.ports import open_system, open_controller_system
     from rehearsal_recorder.midi.rig import MidiRig
     from rehearsal_recorder.midi.controller import Controller
 
@@ -43,9 +43,11 @@ def main():
                 raise RuntimeError(error)
             api._controller.close()
             api._midi.shutdown()
+            controller_system = open_controller_system(system)
             api._midi_system = system
+            api._controller_system = controller_system
             api._midi = MidiRig(system, threads=False)
-            api._controller = Controller(system, api._transport, threads=True)
+            api._controller = Controller(controller_system, api._transport, threads=True)
             api._config['device'] = 0
             api.save_default_tracks({'device_index': 0, 'samplerate': SR,
                                      'tracks': [{'name': 'Test', 'channel': 1}]})
@@ -56,8 +58,8 @@ def main():
             def configure():
                 end = time.monotonic() + 8
                 while time.monotonic() < end:
-                    inputs = [p for p in system.inputs() if args.controller in p.name]
-                    outputs = [p for p in system.outputs() if args.controller in p.name]
+                    inputs = [p for p in controller_system.inputs() if args.controller in p.name]
+                    outputs = [p for p in controller_system.outputs() if args.controller in p.name]
                     if len(inputs) == len(outputs) == 1:
                         result = api.set_controller(inputs[0].saved(), outputs[0].saved())
                         if not result.get('ok'):
@@ -71,7 +73,7 @@ def main():
             def status():
                 transport = api._transport.controller_state()
                 transport.pop('selection_reference', None)
-                return {'backend': system.name, 'transport': transport,
+                return {'backend': controller_system.name, 'instrument_backend': system.name, 'transport': transport,
                         'controller': api.controller_state(), 'player': api.player_state(),
                         'takes': [{'number': t['take_number'], 'song': t.get('song')}
                                   for t in api._session_takes()] if api._session else []}
