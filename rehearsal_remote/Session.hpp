@@ -5,6 +5,7 @@
 namespace remote {
 constexpr uint8_t Version = 1;
 constexpr uint8_t TokenCC = 113, AckTokenCC = 114, ResultCC = 116;
+constexpr uint8_t StatusCC = 115;
 constexpr uint8_t VersionCC = 117, HeartbeatCC = 118, StateCC = 119;
 enum class Action : uint8_t { RecordStop = 60, PlayStop = 62, Restart = 63, PreviousTake = 64, SeekBack = 65, NextTake = 66, SeekForward = 67, PreviousSong = 68, NextSong = 69, MuteToggle = 70, StartRehearsal = 71, StopRehearsal = 72, RemoveTake = 73, SelectTake = 74, SelectSong = 75 };
 enum class State : uint8_t { Ready = 0, Recording = 1, Playing = 2,
@@ -18,6 +19,8 @@ struct Session {
     uint8_t extensions=0;
     bool connected = false, versionKnown = false, snapshotKnown = false;
     bool syncedOnce = false, helloSent = false;
+    bool resyncWaiting = false, hostBlocked = false;
+    uint32_t statusAt = 0;
     uint32_t helloAt = 0;
     bool heartbeatKnown = false, pending = false, protocolMismatch = false, awaitingState = false;
     Action commandAction = Action::RecordStop;
@@ -32,6 +35,8 @@ struct Session {
     void connection(bool up) {
         connected = up; syncedOnce=false;helloSent=false;selection.reset();removalTarget=0;browseGeneration=0;
         versionKnown = snapshotKnown = heartbeatKnown = pending = protocolMismatch = awaitingState = false;
+        resyncWaiting = hostBlocked = false;
+        statusAt = 0;
         state = State::Unavailable;
         result = Result::None;
         ackToken = 255;
@@ -46,8 +51,8 @@ struct Session {
     bool helloDue(uint32_t now, bool metadataReady) {
         if(!connected) return false;
         if(helloSent) {
-            if(pending || awaitingState) return false;
             const bool live=fresh(now);
+            if((pending || awaitingState) && !(resyncWaiting && !live)) return false;
             if(live && metadataReady) return false;
             // Both maximum-length rows need >1 s at the host's bounded rate.
             if(uint32_t(now-helloAt)<(live?2500u:1000u)) return false;
@@ -56,11 +61,11 @@ struct Session {
         return true;
     }
     bool ignoresPress(Action action) const {
-        return pending || awaitingState || (action==Action::PlayStop &&
+        return pending || awaitingState || resyncWaiting || hostBlocked || (action==Action::PlayStop &&
             (state==State::Recording || state==State::Saving));
     }
     bool canSend(Action action, uint32_t now) const {
-        if (!fresh(now) || pending || awaitingState) return false;
+        if (!fresh(now) || pending || awaitingState || resyncWaiting || hostBlocked) return false;
         if(action==Action::SelectTake || action==Action::SelectSong)
             return (extensions&1) && browseGeneration && (state==State::Ready || state==State::Playing);
         if(action==Action::StartRehearsal) return (capabilities&32) && state==State::Idle;
@@ -111,6 +116,18 @@ struct Session {
         } else if (versionKnown && number == HeartbeatCC) {
             heartbeatKnown = true;
             heartbeatAt = now;
+        } else if (versionKnown && number == StatusCC && (extensions & 2) && value <= 2) {
+            const bool wasBlocked = hostBlocked;
+            hostBlocked = value != 0;
+            // A token-bound host update can release stale local bookkeeping.
+            // No command is replayed, even if its acknowledgement was lost.
+            if (ackToken == token && !hostBlocked) {
+                if (pending || awaitingState || resyncWaiting || wasBlocked) {
+                    pending = awaitingState = resyncWaiting = false;
+                    result = Result::None;
+                    ++resultSequence;
+                }
+            }
         } else if (number == AckTokenCC) {
             ackToken = value;
         } else if (number == ResultCC && (pending || awaitingState) && ackToken == token && value >= 1 && value <= 4) {
@@ -121,12 +138,26 @@ struct Session {
         }
         if(fresh(now)) syncedOnce=true;
     }
+    bool statusDue(uint32_t now) {
+        if (!connected || !(extensions & 2)) return false;
+        if (!(resyncWaiting || hostBlocked) || uint32_t(now-statusAt) < 1500) return false;
+        statusAt = now;
+        return true;
+    }
     void tick(uint32_t now) {
         if ((pending && uint32_t(now-commandAt)>=1500) ||
             (!pending && awaitingState && uint32_t(now-commandAt)>=3500)) {
-            result = Result::Timeout;
-            ++resultSequence;
-            pending = awaitingState = false; // never retry a toggle automatically
+            if (extensions & 2) {
+                resyncWaiting = true;
+                pending = false;
+                awaitingState = true;
+                // Keep the waiting indication until the host grants readiness.
+                commandAt = now;
+            } else {
+                result = Result::Timeout;
+                ++resultSequence;
+                pending = awaitingState = false;
+            }
         }
     }
 };

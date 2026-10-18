@@ -520,7 +520,7 @@ E013            -
 | E007 | Requested action unavailable | Check recorder state and navigation support. Also covers a host Unavailable result. Stop recording/saving before navigation. |
 | E008 | Relative volume unsupported | Update the recorder to support relative-volume capability. No guessed absolute setting is sent. |
 | E009 | Recorder command failed | Inspect recorder error/log; retain any unsaved take. Result Error carries no detailed cause. |
-| E010 | Command confirmation timed out | Check both MIDI directions and recorder health. Acknowledgement timeout is 1.5 seconds; after an accepted transport request, state confirmation timeout is 3.5 seconds; do not blindly retry a Record/Play toggle. |
+| E010 | Command confirmation timed out | Check both MIDI directions and recorder health. Legacy hosts time out after 1.5 seconds for acknowledgement or 3.5 seconds for state. With readiness support, the controller stays blocked and requests status every 1.5 seconds. Record/Play toggles are never replayed. |
 | E011 | TAKE and SONG held together | Release one button, or BACK to cancel held modes until both are released. |
 | E012 | Start rehearsal unsupported in this context | Use the explicit connected idle start screen with a lifecycle-capable host. Check saved audio setup and matching lifecycle-capable recorder. |
 | E013 | Recorder does not support this menu action | Stop rehearsal and Remove take require the new optional host capabilities. No command is sent to an older recorder. Removal also requires matching selection-reference support. |

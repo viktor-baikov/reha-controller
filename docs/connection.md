@@ -16,7 +16,9 @@ Automatic native reconnection has not been consistently validated.
 Pair in Windows Bluetooth settings. In the recorder's Controls settings, select
 the Bluetooth MIDI IN port and apply. The integration selects the unique matching
 Bluetooth MIDI OUT port; ambiguous outputs require explicit selection.
-The recorder uses its existing pylibremidi dependency with the native UWP backend.
+The recorder uses its existing pylibremidi dependency and the original Windows
+MIDI Services/WinMM backend order. Bluetooth operation with this order requires
+Windows hardware validation.
 No external MIDI bridge is required for the validated Windows path.
 
 ## Linux

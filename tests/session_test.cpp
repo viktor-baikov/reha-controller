@@ -74,6 +74,43 @@ int main() {
     failed.cc(114,failed.token,1);failed.cc(116,1,1);assert(failed.awaitingState);
     failed.cc(114,failed.token,2);failed.cc(116,4,2);
     assert(!failed.awaitingState && failed.result==Result::Error);
+    Session recovery;
+    recovery.connection(true);
+    ready(recovery, 0);
+    recovery.cc(110, 2, 0);
+    assert(recovery.begin(Action::RecordStop, 0));
+    recovery.tick(1500);
+    assert(recovery.resyncWaiting && !recovery.canSend(Action::RecordStop, 1500));
+    assert(recovery.statusDue(1500) && !recovery.statusDue(1501));
+    recovery.cc(114, recovery.token, 1502);
+    recovery.cc(115, 1, 1502);
+    assert(recovery.hostBlocked && recovery.resyncWaiting);
+    recovery.cc(118, 2, 3000);
+    assert(recovery.statusDue(3000));
+    recovery.cc(119, 1, 3001);
+    recovery.cc(115, 0, 3001);
+    assert(!recovery.pending && !recovery.awaitingState && !recovery.resyncWaiting);
+    assert(recovery.canSend(Action::RecordStop, 3001));
+    // Old-token readiness cannot release an unconfirmed command.
+    assert(recovery.begin(Action::RecordStop, 3002));
+    recovery.tick(4502);
+    recovery.cc(114, (recovery.token + 1) & 127, 4503);
+    recovery.cc(115, 0, 4503);
+    assert(recovery.resyncWaiting);
+    assert(recovery.helloDue(7000, true)); // host restart while waiting can re-handshake
+    Session reported_error;
+    reported_error.connection(true);
+    ready(reported_error, 0);
+    reported_error.cc(110, 2, 0);
+    reported_error.cc(112, 1, 0);
+    assert(reported_error.begin(Action::Restart, 0));
+    reported_error.cc(114, reported_error.token, 1);
+    reported_error.cc(116, 4, 1);
+    reported_error.cc(115, 0, 1);
+    assert(reported_error.result == Result::Error); // a fresh failure remains visible
+    reported_error.cc(115, 2, 2);
+    reported_error.cc(115, 0, 3);
+    assert(reported_error.result == Result::None); // recorder recovery clears stale failure
     puts("Firmware session tests passed");
 
     Session extension;extension.connection(true);ready(extension,0);

@@ -58,11 +58,13 @@ Controller CC111 bits:
 | 2 | Atomic selected-take removal reference |
 | 4 | Explicit idle/lifecycle |
 | 8 | Cached browsing |
+| 16 | Token-bound readiness and status requests |
 
-Current desktop firmware advertises **15**. Host CC112 bits are 1 navigation,
+Current desktop firmware advertises **31**. Host CC112 bits are 1 navigation,
 2 absolute playback volume, 4 text, 8 relative volume, 16 mute, 32 lifecycle,
 64 removal. Lifecycle/removal are enabled only for compatible controller bits.
-Host CC110 bit1 independently advertises cached browsing. Current fully capable
+Host CC110 bit1 independently advertises cached browsing; bit2 advertises
+readiness status for controllers advertising CC111 bit16. Current fully capable
 host CC112 is 127. Capabilities clear on disconnect. Optional extensions retain
 major1; unsupported commands are not sent.
 
@@ -178,8 +180,10 @@ top ≤15.
 | 4 | generation(5), absolute take index(2); controller request |
 | 5 | generation(5), absolute song index(2); controller request |
 
-Bounds: 128 song names and 512 take numbers for the current song. Oversized,
-partial or corrupt lists never become usable truncated catalogs. The host sends
+Bounds: 128 song names and 512 take numbers for the current song. The adapter
+selects a bounded prefix and retains the current selection when the source catalog
+is larger. That bounded catalog is transmitted as a complete generation. Partial,
+corrupt or oversized wire frames are rejected. The host sends
 an explicit empty idle catalog too. Text is independently prioritized; catalog
 traffic drains up to eight CCs per 50ms tick. CC89=1 requests a read-only resend
 after 2.5s without expected transfer activity.
@@ -200,3 +204,20 @@ Without `REHA_DESKTOP_PANEL`, the default sketch is BOOT-only; old
 The basic `mac_controller_simulator` creates no audio; it does not establish
 acceptance for every optional extension. Use recorder tests for the complete
 host model. Never run conflicting feedback publishers.
+
+## Token-bound readiness
+
+This optional extension uses CC115. Controller CC113=query token followed by
+CC115=127 requests status without HELLO, epoch changes or action replay.
+Host CC114=query token followed by
+CC115 reports 0 permits control, 1 busy, 2 requires attention in the recorder.
+Status is also published in normal snapshots with the last command token (127
+before any command); queued/running actions report busy. A query echoes its token
+even if the original command never reached the host.
+
+With the extension negotiated, acknowledgement/state timeout retains a blocked
+waiting view and starts status requests every 1.5 seconds. Only a matching-token
+status permitting control clears pending commands and stale local command errors.
+Busy or attention keeps controls blocked. Heartbeat loss continues to show loss
+of recorder communication. Legacy hosts retain the local timeout behaviour.
+The controller never repeats a timed-out action or releases recorder locks.

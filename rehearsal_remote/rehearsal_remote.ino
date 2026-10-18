@@ -183,7 +183,12 @@ void loop() {
     if (session.helloDue(now,metadataReady)) {
         diagnostics.event(now,"hello","fresh=%u text=%u/%u",session.fresh(now),text.received[0],text.received[1]);
         control(remote::VersionCC, remote::Version);
-        control(111, 15); // text, atomic selection reference, explicit idle/rehearsal actions
+        control(111, 31); // text, atomic selection reference, explicit idle/rehearsal actions
+        midi.sendNow();
+    }
+    if (session.statusDue(now)) {
+        control(remote::TokenCC, session.token);
+        control(remote::StatusCC, 127);
         midi.sendNow();
     }
     auto edge = recordButton.update();

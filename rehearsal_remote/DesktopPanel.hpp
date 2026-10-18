@@ -110,10 +110,10 @@ struct DesktopPanel {
         // an old volume turn as song selection or replay it after reconnect.
         const bool takeChanged=takeWas!=takeHeld;
         const bool songChanged=songWas!=songHeld;
-        const bool pressed=pushEdge==Button::Falling && backEdge!=Button::Falling;
-        if(mode!=previousMode || takeChanged || songChanged || backEdge==Button::Falling || pressed) steps=0;
+        const bool pressed=!session.hostBlocked && !session.resyncWaiting && pushEdge==Button::Falling && backEdge!=Button::Falling;
+        if(session.hostBlocked || session.resyncWaiting || mode!=previousMode || takeChanged || songChanged || backEdge==Button::Falling || pressed) steps=0;
         menu.setTake(remote::selectedTake(text.rows[0]));
-        const bool idle=fresh && session.state==remote::State::Idle;
+        const bool idle=fresh && !session.hostBlocked && !session.resyncWaiting && session.state==remote::State::Idle;
         const bool confirming=menu.page==remote::MenuPage::Confirm;
         const bool selectionChanged=confirming && menu.item==remote::MenuItem::RemoveTake &&
             (menu.take!=menu.confirmedTake || strcmp(menu.confirmedIdentity,text.rows[0]) ||
@@ -121,7 +121,7 @@ struct DesktopPanel {
         if(selectionChanged) {
             menu.home();tell(remote::PanelError::ActionUnavailable,now);
         }
-        const bool navigationReady=fresh && (session.state==remote::State::Ready || session.state==remote::State::Playing);
+        const bool navigationReady=fresh && !session.hostBlocked && !session.resyncWaiting && (session.state==remote::State::Ready || session.state==remote::State::Playing);
         // A recording can add a take while the button is held. Do not reuse
         // pre-recording choices before the host publishes a complete new list.
         if(fresh && (session.state==remote::State::Recording || session.state==remote::State::Saving)) catalogRefreshNeeded=true;
@@ -137,7 +137,7 @@ struct DesktopPanel {
             seenResultSequence=session.resultSequence;
             const auto error=remote::resultPanelError(session.result,session.commandAction);
             if(error!=remote::PanelError::None) tell(error,now);
-            else if(session.result==remote::Result::Accepted || session.result==remote::Result::Busy) notice=remote::PanelError::None;
+            else if(session.result==remote::Result::None || session.result==remote::Result::Accepted || session.result==remote::Result::Busy) notice=remote::PanelError::None;
         }
         if(confirming) { steps=0; }
         const bool heldMode=mode==remote::HeldMode::Take || mode==remote::HeldMode::Song;
@@ -251,7 +251,7 @@ struct DesktopPanel {
         } else if(menu.page!=remote::MenuPage::Home) {
             remote::lcdRow(rows[0],menu.name());
             remote::lcdRow(rows[1],menu.item==remote::MenuItem::Restart?"Press to restart":menu.item==remote::MenuItem::StopRehearsal?"Press to stop":menu.item==remote::MenuItem::RemoveTake?"Press to remove":menu.item==remote::MenuItem::Brightness?"Press to adjust":menu.item==remote::MenuItem::LcdTest?"Press to test":"Press to start");
-        } else remote::statusRow(rows[1],remote::requestedStatus(session),level,session.pending || session.awaitingState);
+        } else remote::statusRow(rows[1],remote::requestedStatus(session),level,session.pending || session.awaitingState || session.hostBlocked);
         // Menu/idle pending uses top-right *. Held headings remain static.
         // Home appends * to status, never overwriting the song.
         if(error==remote::PanelError::None && !heldMode && (session.pending || session.awaitingState) &&
