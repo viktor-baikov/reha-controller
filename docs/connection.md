@@ -14,7 +14,8 @@ Automatic native reconnection has not been consistently validated.
 ## Windows 11 x64
 
 Pair in Windows Bluetooth settings. In the recorder's Controls settings, select
-the Bluetooth MIDI IN port and apply. The integration selects the unique matching
+the Bluetooth MIDI IN port; the selection saves immediately. The integration
+selects the unique matching
 Bluetooth MIDI OUT port; ambiguous outputs require explicit selection.
 The recorder uses its existing pylibremidi dependency. Instrument MIDI keeps
 Windows MIDI Services/WinMM selection. When the primary backend is WinMM,
